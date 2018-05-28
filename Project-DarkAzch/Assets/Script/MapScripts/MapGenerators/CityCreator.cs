@@ -34,7 +34,8 @@ public class CityCreator : MonoBehaviour {
 						range = minDistance>=Vector3.Distance (cities[j].transform.position,pos);// checks if the distance is greater or equal to minDistance
 						if(range){
 							errorCounter++;
-							Debug.Log("Error counter : "+errorCounter+" with position "+ pos + " and distance "+Vector3.Distance (cities[j].transform.position,pos));//reports error
+							Debug.Log("Error counter : "+errorCounter+" with position "+ pos + 
+								" and distance "+Vector3.Distance (cities[j].transform.position,pos));//reports error
 							genPos ();
 							j=0;
 						}

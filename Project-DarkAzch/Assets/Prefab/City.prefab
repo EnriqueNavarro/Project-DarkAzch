@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33599989549674312}
   - component: {fileID: 136394811581247370}
   - component: {fileID: 23339900813239458}
+  - component: {fileID: 114002674569731054}
   m_Layer: 0
   m_Name: City
   m_TagString: City
@@ -80,6 +81,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1045127446790928}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114002674569731054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045127446790928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef6a777d10642e42a511738e78b16a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136394811581247370
 CapsuleCollider:
   m_ObjectHideFlags: 1
