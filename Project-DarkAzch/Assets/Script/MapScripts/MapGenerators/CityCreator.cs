@@ -15,13 +15,12 @@ public class CityCreator : MonoBehaviour {
 	[SerializeField] private float minDistance=2; // minimal distance between cities
 	private List<GameObject> cities= new List<GameObject>(); // list of cities created to check distances and to pass onto gameManager
 	private GameObject aux; // auxiliary GO to store the city to create in the list
-	// Use this for initialization
+	int l=0;
 	void Start () {
 		map.transform.position = new Vector3 (0, 0, 0); //centers the map on the screen
 		height = map.transform.localScale.z*sizeModifier-1; //gets height and cuts the edges as to not have a city on the edge
 		length = map.transform.localScale.x*sizeModifier-1;
-		aux=Instantiate (city, pos, Quaternion.identity);//instantiates city
-		cities.Add (aux);//adds city to the list
+		create ();
 		for(int i = 0 ; i<numberOfCities ; i++){// city creator
 			int errorCounter=0; //keeps track of errors in case it cant find a pos that works
 			if((cities.Count>0)){ // the first city will be in pos 0,0,0
@@ -34,31 +33,31 @@ public class CityCreator : MonoBehaviour {
 						range = minDistance>=Vector3.Distance (cities[j].transform.position,pos);// checks if the distance is greater or equal to minDistance
 						if(range){
 							errorCounter++;
-							Debug.Log("Error counter : "+errorCounter+" with position "+ pos + 
-								" and distance "+Vector3.Distance (cities[j].transform.position,pos));//reports error
 							genPos ();
 							j=0;
 						}
 						if(errorCounter>10){
+							//this.GetComponentInParent<GMvalues> ().saveCities(cities);//once done sends the cities to the Game Manager
 							Destroy(this.gameObject);//if it cant make all the cities, it stops the script
 						}
 					} while(range);
 				}
-				aux=Instantiate (city, pos, Quaternion.identity);//instantiates city
-				cities.Add (aux);//adds city to the list
+				create ();
 			}
 		}
+		this.GetComponentInParent<GMvalues> ().saveCities(cities);//once done sends the cities to the Game Manager
 		Destroy(this.gameObject); // once it created all the cities it destroys the object
+	}
+	void create(){//creates the cities
+		aux=Instantiate (city, pos, Quaternion.identity);//instantiates city
+		aux.GetComponent<CityStats>().num=l;
+		cities.Add (aux);//adds city to the list
+		l++;
 	}
 	void genPos(){// get the coordinates to create a new city inside the map
 		x = Random.Range (height*-1,height);
 		y = Random.Range (length*-1,length);
 		pos = new Vector3 (x, y, 0);
 	}
-
-	
-	// Update is called once per frame
-	void Update () {
 		
-	}
 }

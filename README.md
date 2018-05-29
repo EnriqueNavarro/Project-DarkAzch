@@ -47,7 +47,7 @@ Gameplay
   
   -> Roads
   
-    ->Cities have roads to adyacent cities
+    -> Cities have roads to adyacent cities
     
     -> Enable trade
     
