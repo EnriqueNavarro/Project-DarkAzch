@@ -8,7 +8,7 @@ public class Stats : MonoBehaviour {
     [SerializeField] private int maxHealth;
     [SerializeField] private int lvl;
     [SerializeField] private float speed;
-    [SerializeField] private string className;
+    [SerializeField] private ClassName.ClassNames className;
     [SerializeField] private string basePhysicalRes;
     [SerializeField] private int physicalRes;
     [SerializeField] private int baseMagicRes;
@@ -20,9 +20,7 @@ public class Stats : MonoBehaviour {
     [SerializeField] private int xp;
     [SerializeField] private int xpRequiered=0;
     [SerializeField] private int baseDmg;
-    [SerializeField] private bool hybridAttacks;//50% physicall dmg on hit and 50% magical dmg on attack
-    [SerializeField] private string hybridElement;
-    public bool initialize = false;
+    [SerializeField] private Element.elementTypes hybridAttacks;//50% physicall dmg on hit and 50% magical dmg on attack
 
     public int PhysicalRes
     {
@@ -96,31 +94,45 @@ public class Stats : MonoBehaviour {
             poisonRes = value;
         }
     }
-    void setBaseStats(string _basePhysicalRes) {
+
+    public Element.elementTypes HybridAttacks
+    {
+        get
+        {
+            return hybridAttacks;
+        }
+
+        set
+        {
+            hybridAttacks = value;
+        }
+    }
+
+    void setBaseStats(Protection.ProtectionLevel _basePhysicalRes) {
         switch (_basePhysicalRes)
         {
-            case "plate":
+            case Protection.ProtectionLevel.plate:
                 maxHealth = 150;
                 physicalRes = 3;
                 baseMagicRes = 0;
                 speed = 4;
                 baseDmg = 10;
                 break;
-            case "mail":
+            case Protection.ProtectionLevel.mail:
                 maxHealth = 100;
                 physicalRes = 2;
                 baseMagicRes = 1;
                 speed = 6;
                 baseDmg = 12;
                 break;
-            case "leather":
+            case Protection.ProtectionLevel.leather:
                 maxHealth = 75;
                 physicalRes = 1;
                 baseMagicRes = 2;
                 speed = 8;
                 baseDmg = 14;
                 break;
-            case "cloth":
+            case Protection.ProtectionLevel.cloth:
                 maxHealth = 50;
                 physicalRes = 0;
                 baseMagicRes = 3;
@@ -130,48 +142,47 @@ public class Stats : MonoBehaviour {
         }
         this.GetComponent<NavMeshAgent>().speed = speed;
     }
-    void create() {
+    void create(ClassName.ClassNames className) {
         health = maxHealth;
         xp = 0;
         xpRequiered = 100;
         lvl = 1;
         switch (className) {
-            case "shadow dancer":
-                setBaseStats("leather");
+            case ClassName.ClassNames.ShadowDancer:
+                setBaseStats(Protection.ProtectionLevel.leather);
                 fireRes = baseMagicRes-1;
                 frostRes = baseMagicRes+1;
                 lightRes = baseMagicRes-1;
                 shadowRes = baseMagicRes+1;
                 poisonRes = baseMagicRes+1;
-                hybridAttacks = false;
+                HybridAttacks = Element.elementTypes.none;
                 break;
-            case "twilight guardian":
-                setBaseStats("plate");
+            case ClassName.ClassNames.TwilightGuardian:
+                setBaseStats(Protection.ProtectionLevel.plate);
                 fireRes = baseMagicRes;
                 frostRes = baseMagicRes;
                 lightRes = baseMagicRes;
                 shadowRes = baseMagicRes;
                 poisonRes = baseMagicRes;
-                hybridAttacks = false;
+                HybridAttacks = Element.elementTypes.none;
                 break;
-            case "crystal sword":
-                setBaseStats("mail");
+            case ClassName.ClassNames.CrystalSword:
+                setBaseStats(Protection.ProtectionLevel.mail);
                 fireRes = baseMagicRes-1;
                 frostRes = baseMagicRes+1;
                 lightRes = baseMagicRes;
                 shadowRes = baseMagicRes;
                 poisonRes = baseMagicRes+1;
-                hybridAttacks = false;
+                HybridAttacks = Element.elementTypes.none;
                 break;
-            case "unhinged flame":
-                setBaseStats("mail");
+            case ClassName.ClassNames.UnhingedFlame:
+                setBaseStats(Protection.ProtectionLevel.mail);
                 fireRes = baseMagicRes+1;
                 frostRes = baseMagicRes+1;
                 lightRes = baseMagicRes+1;
                 shadowRes = baseMagicRes+1;
                 poisonRes = baseMagicRes+1;
-                hybridAttacks = true;
-                hybridElement = "fire";
+                HybridAttacks = Element.elementTypes.fire;
                 maxHealth = 50;
                 health = maxHealth;
                 break;
@@ -180,12 +191,12 @@ public class Stats : MonoBehaviour {
     void death() {
      //to decide
     }
-    void damage(int dmg) {
+    public void damage(int dmg) {
         dmg = health - (int)dmg/(physicalRes+1);
         health = Mathf.Clamp(dmg,0,maxHealth);
         if (health == 0) death();
     }
-    void damage(int dmg, string element)
+    public void damage(int dmg, string element)
     {
         switch(element) {
             case "fire":
@@ -207,17 +218,17 @@ public class Stats : MonoBehaviour {
         health = Mathf.Clamp(dmg, 0, maxHealth);
         if (health == 0) death();
     }
-    void heal(int _heal) {
+    public void heal(int _heal) {
         _heal = health + _heal;
         health = Mathf.Clamp(_heal, 0, maxHealth);
     }
-    int getHealth() {
+    public int getHealth() {
         return health;
     }
-    int setHealth(int _health) {
+    public int setHealth(int _health) {
         return health=_health;
     }
-    int addxp(int _xp) {
+    public int addxp(int _xp) {
         if(_xp+xp>=xpRequiered) {
             xp = xpRequiered - (_xp + xp);
             xpRequiered *=(int) 1.2;
@@ -254,15 +265,13 @@ public class Stats : MonoBehaviour {
                 baseDmg *= (int)1.15;
                 break;
         }
+
     }
-    private void Update()
+    
+    public void init(ClassName.ClassNames className)
     {
-        if (initialize) init();
-    }
-    public void init()
-    {
-        if(xpRequiered==0 && className!=null) {
-            create();
+        if(xpRequiered==0) {
+            create(className);
             Debug.Log("starting creation");
         }
     }

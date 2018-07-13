@@ -5,7 +5,7 @@ using UnityEngine;
 public class CityStats : MonoBehaviour {
 	[SerializeField] private bool roads = false;
 	public int num;
-	[SerializeField] private int maxRoads=1;
+
 	private List<GameObject> roadList= new List<GameObject>();
 	// Use this for initialization
 	void Start () {

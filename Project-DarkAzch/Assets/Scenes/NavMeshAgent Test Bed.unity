@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 941447533}
   - component: {fileID: 941447532}
   - component: {fileID: 941447531}
+  - component: {fileID: 941447537}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -235,6 +236,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941447537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 941447530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5573d1dde7e1f84fb91c3af312cee37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  lvl: 0
+  speed: 0
+  className: unhinged flame
+  basePhysicalRes: 
+  physicalRes: 0
+  baseMagicRes: 0
+  fireRes: 0
+  frostRes: 0
+  lightRes: 0
+  shadowRes: 0
+  poisonRes: 0
+  xp: 0
+  xpRequiered: 0
+  baseDmg: 0
+  hybridAttacks: 0
+  hybridElement: 
+  initialize: 0
 --- !u!1 &1086295054
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,19 +348,19 @@ Prefab:
     m_Modifications:
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19.591545
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.748701
+      value: 10.12
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.32351112
+      value: -16.78
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: 0.3045318
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalRotation.y
@@ -341,7 +372,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.8660254
+      value: 0.9525022
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_RootOrder
@@ -369,7 +400,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 60
+      value: 35.46
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 2}
       propertyPath: scrollWheelZoomingSensitivity
