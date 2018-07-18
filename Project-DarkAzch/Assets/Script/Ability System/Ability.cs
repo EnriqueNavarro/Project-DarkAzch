@@ -2,45 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability  {
+public abstract class Ability : MonoBehaviour  {
 
-    private string name;
-    private string description;
-    private Sprite icon;
-    private List<AbilityBehaviors> behaviors;
-    private bool requireTarget;
-    private bool selfTarget;
-    private int cd; //secs
-    private GameObject particleflefx;
-    private int duration;
-    private float range;
-
-    public Ability(string name, string description, Sprite icon, List<AbilityBehaviors> behaviors, bool requireTarget, bool selfTarget, int cd, GameObject particleflefx, int duration, float range)
-    {
-        this.name = name;
-        this.description = description;
-        this.icon = icon;
-        this.behaviors = behaviors;
-        this.requireTarget = requireTarget;
-        this.selfTarget = selfTarget;
-        this.cd = cd;
-        this.particleflefx = particleflefx;
-        this.duration = duration;
-        this.range = range;
+    [SerializeField] private string name;
+    [SerializeField] private string description;
+    [SerializeField] private Sprite icon;
+    [SerializeField] private bool requireTarget;
+    [SerializeField] private bool selfTarget;
+    [SerializeField] private int cd; //secs
+    [SerializeField] private GameObject particleflefx;
+    [SerializeField] private int duration;
+    [SerializeField] private float range;
+    private float timer;
+    public float deltaTime;
+    public void startCD() {
+        Timer = Time.fixedTime;
     }
-
-    public List<AbilityBehaviors> Behaviors
-    {
-        get
-        {
-            return behaviors;
-        }
-
-        set
-        {
-            behaviors = value;
-        }
+    public void refreshCD() {
+        timer = 0;
     }
+    public abstract void useAbility();
+
+    public abstract void endAbility();
 
     public bool RequireTarget
     {
@@ -107,26 +90,54 @@ public class Ability  {
         }
     }
 
+    public string Description
+    {
+        get
+        {
+            return description;
+        }
+
+        set
+        {
+            description = value;
+        }
+    }
+
+    public float Timer
+    {
+        get
+        {
+            return timer;
+        }
+
+        set
+        {
+            timer = value;
+        }
+    }
+
     public string getName() {
         return name;
     }
+
     public string getDescription()
     {
         return description;
     }
+
     public Sprite getIcon()
     {
         return icon;
     }
+
     public int getCd()
     {
         return cd;
     }
+
     public void setCd(int _cd) {
         cd = _cd;
     }
-    public void useAbility() {
-
-    }
+    
 
 }

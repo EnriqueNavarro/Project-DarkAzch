@@ -21,6 +21,7 @@ public class Stats : MonoBehaviour {
     [SerializeField] private int xpRequiered=0;
     [SerializeField] private int baseDmg;
     [SerializeField] private Element.elementTypes hybridAttacks;//50% physicall dmg on hit and 50% magical dmg on attack
+    [SerializeField] private bool stealth=false;
 
     public int PhysicalRes
     {
@@ -105,6 +106,19 @@ public class Stats : MonoBehaviour {
         set
         {
             hybridAttacks = value;
+        }
+    }
+
+    public bool Stealth
+    {
+        get
+        {
+            return stealth;
+        }
+
+        set
+        {
+            stealth = value;
         }
     }
 
